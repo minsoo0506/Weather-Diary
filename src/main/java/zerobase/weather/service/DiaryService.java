@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(readOnly = true)
 public class DiaryService {
     @Value("${openweathermap.key}")
     private String apikey;
@@ -37,14 +36,13 @@ public class DiaryService {
 
     private final DateWeatherRepository dateWeatherRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(DiaryService.class);
 
     public DiaryService(DiaryRepository diaryRepository, DateWeatherRepository dateWeatherRepository){
         this.diaryRepository = diaryRepository;
         this.dateWeatherRepository = dateWeatherRepository;
     }
 
-    @Transactional
     @Scheduled(cron = "0 0 1 * * *")
     public void saveWeatherDate(){
         logger.info("success to save weather");
